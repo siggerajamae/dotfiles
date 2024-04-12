@@ -6,6 +6,11 @@ input "type:keyboard" {
 ## Font
 font pango:JetBrains Mono Nerd Font 11
 
+## Theme
+exec {
+	gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+}
+
 ## Variables
 set $mod Mod4
 set $left h
@@ -111,16 +116,16 @@ bindsym $mod+a focus parent
 # Resizing containers:
 mode "resize" {
 	# Vim-style
-	bindsym $left resize shrink width 10px
-	bindsym $down resize grow height 10px
-	bindsym $up resize shrink height 10px
-	bindsym $right resize grow width 10px
+	bindsym $left resize shrink width 40px
+	bindsym $down resize grow height 40px
+	bindsym $up resize shrink height 40px
+	bindsym $right resize grow width 40px
 
 	# Arrows
-	bindsym Left resize shrink width 10px
-	bindsym Down resize grow height 10px
-	bindsym Up resize shrink height 10px
-	bindsym Right resize grow width 10px
+	bindsym Left resize shrink width 40px
+	bindsym Down resize grow height 40px
+	bindsym Up resize shrink height 40px
+	bindsym Right resize grow width 40px
 
 	# Return to default mode
 	bindsym Return mode "default"
