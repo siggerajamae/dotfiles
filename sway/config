@@ -7,8 +7,10 @@ input "type:keyboard" {
 font pango:JetBrains Mono Nerd Font 11
 
 ## Theme
-exec {
-	gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+exec_always {
+	gsettings set org.gnome.desktop.interface gtk-theme "Breeze-Dark"
+	gsettings set org.gnome.desktop.interface icon-theme "Breeze-Dark" 
+	gsettings set org.gnome.desktop.interface cursor-theme "breeze_cursors"
 }
 
 ## Variables
