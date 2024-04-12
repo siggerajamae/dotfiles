@@ -4,7 +4,7 @@ input "type:keyboard" {
 }
 
 ## Font
-font pango:JetBrains Mono Nerd Font
+font pango:JetBrains Mono Nerd Font 11
 
 ## Variables
 set $mod Mod4
