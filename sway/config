@@ -1,23 +1,20 @@
-# Keyboard layout
+## Keyboard layout
 input "type:keyboard" {
 	  xkb_layout se
 }
 
-# Variables
+## Variables
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
 
-# Terminal emulator
+## Terminal emulator
 set $term foot
 
-# Application launcher
+## Application launcher
 set $menu wofi --show run | xargs swaymsg exec 
-
-# Output configuration
-output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 ## Key maps
 # Start a terminal
@@ -108,7 +105,7 @@ bindsym $mod+space focus mode_toggle
 # Move focus to the parent container
 bindsym $mod+a focus parent
 
-## Resizing containers:
+# Resizing containers:
 mode "resize" {
 	# Vim-style
 	bindsym $left resize shrink width 10px
@@ -141,7 +138,7 @@ bar {
 	}
 }
 
-# Autostart
+## Autostart
 exec "pipewire"
 
 include @sysconfdir@/sway/config.d/*
