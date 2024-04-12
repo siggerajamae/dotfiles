@@ -141,4 +141,7 @@ bar {
 	}
 }
 
+# Autostart
+exec "pipewire"
+
 include @sysconfdir@/sway/config.d/*
