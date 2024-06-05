@@ -63,6 +63,7 @@ local plugins = {
 			})
 		end
 	},
+	"barreiroleo/ltex_extra.nvim",
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-buffer",
 	"hrsh7th/vim-vsnip",
@@ -103,7 +104,7 @@ local plugins = {
 	},
 	{
 		"nvim-neorg/neorg",
-		build = ":Neorg sync-parsers",
+		version = "v7.0.0",
 		config = function()
 			require("neorg").setup({
 				load = {
@@ -139,13 +140,41 @@ mason_lspconfig.setup_handlers({
 		require("lspconfig")[server_name].setup({
 			capabilities = capabilities
 		})
-	end
+	end,
+	["ltex"] = function()
+		local lspconfig = require("lspconfig")
+		lspconfig.ltex.setup({
+			on_attach = function(_, _)
+				require("ltex_extra").setup()
+			end,
+			settings = {
+				ltex = {
+					language = "en-US",
+					enabled = {
+						"gitcommit",
+						"markdown",
+						"norg",
+						"tex",
+						"typst",
+						"latex"
+					},
+					dictionary = {}
+				}
+			},
+			filetypes = {
+				"gitcommit",
+				"markdown",
+				"norg",
+				"tex",
+				"typst"
+			}
+		})
+	end,
 })
 
 -- Keymaps
 vim.g.mapleader = " "
 vim.keymap.set("i", "jk", "<esc>", { noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "d", "\"_d", { noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "k", "(v:count > 1 ? 'm`' . v:count : '') . 'k'",
 	{ noremap = true, expr = true, silent = true })
 vim.keymap.set({ "n", "v" }, "j", "(v:count > 1 ? 'm`' . v:count : '') . 'j'",
@@ -170,8 +199,8 @@ vim.keymap.set("n", "<leader>fh", telescope.help_tags)
 -- Options
 vim.opt.relativenumber = true
 vim.opt.number = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
 vim.opt.clipboard = "unnamedplus"
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -187,10 +216,15 @@ vim.filetype.add({
 -- Theme
 vim.opt.background = "dark"
 vim.cmd.colorscheme("oxocarbon")
-vim.api.nvim_set_hl(0, "@markup.strong", { bold = true })
-vim.api.nvim_set_hl(0, "@markup.italic", { italic = true })
+vim.api.nvim_set_hl(0, "@text.strong", { bold = true })
+vim.api.nvim_set_hl(0, "@text.emphasis", { italic = true })
 
 -- LSP
 vim.diagnostic.config({
 	virtual_text = false,
+})
+
+
+require("lspconfig")["hls"].setup({
+	capabilities = capabilities,
 })
