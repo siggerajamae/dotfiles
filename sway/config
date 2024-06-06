@@ -1,18 +1,17 @@
-# Update the dbus environment
-exec --no-startup-id dbus-update-activation-environment --all 
-
 # Keyboard layout
 input * {
 	xkb_layout se
 }
 
-# GTK
+# Theme
+set $cursor-theme 'breeze_cursors'
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
 	gsettings set $gnome-schema gtk-theme 'Breeze-Dark'
-    gsettings set $gnome-schema icon-theme 'breeze-dark'
-    gsettings set $gnome-schema cursor-theme 'breeze_cursors'
+    gsettings set $gnome-schema icon-theme 'We10X-dark'
+    gsettings set $gnome-schema cursor-theme $cursor-theme
 }
+seat seat0 xcursor_theme $cursor-theme 22
 
 # Wacom tablet
 input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 960 270 960 540
@@ -22,9 +21,6 @@ font pango:Jetbrains Mono Nerd Font 11
 
 # Hotplugging
 exec_always ~/.config/sway/hotplug.sh
-
-# Pipewire
-exec pipewire
 
 # Variables
 set $mod Mod4
@@ -52,7 +48,7 @@ set $menu bemenu-run \
 # Output
 output eDP-1 mode 2880x1800@90Hz
 output DP-1 mode 1920x1080@144Hz
-output * bg ~/wallpaper/kiki-credits.png fill
+output * bg ~/wallpapers/grass-field.jpg fill
 
 # Disable focus on hover
 focus_follows_mouse no
