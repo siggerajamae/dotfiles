@@ -68,6 +68,7 @@ local plugins = {
     "barreiroleo/ltex_extra.nvim",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-cmdline",
     "hrsh7th/vim-vsnip",
     "nvim-tree/nvim-web-devicons",
     "ggandor/leap.nvim",
@@ -164,6 +165,25 @@ vim.keymap.set({ "n", "v" }, "j", "(v:count > 1 ? 'm`' . v:count : '') . 'j'",
     { noremap = true, expr = true, silent = true })
 vim.keymap.set({ "n", "v" }, "<c-d>", "m`<c-d>")
 vim.keymap.set({ "n", "v" }, "<c-u>", "m`<c-u>")
+vim.keymap.set({ "n", "v" }, "<c-q>", "<cmd>tabclose<cr>")
+vim.keymap.set({ "n", "v" }, "<c-j>", "<cmd>tabfirst<cr>")
+vim.keymap.set({ "n", "v" }, "<c-k>", "<cmd>tablast<cr>")
+vim.keymap.set({ "n", "v" }, "<c-h>", "<cmd>tabp<cr>")
+vim.keymap.set({ "n", "v" }, "<c-l>", "<cmd>tabn<cr>")
+vim.keymap.set({ "n", "v" }, "<c-s-j>", "<cmd>0tabmove<cr>")
+vim.keymap.set({ "n", "v" }, "<c-s-k>", "<cmd>$tabmove<cr>")
+vim.keymap.set({ "n", "v" }, "<c-s-h>", "<cmd>-tabmove<cr>")
+vim.keymap.set({ "n", "v" }, "<c-s-l>", "<cmd>+tabmove<cr>")
+vim.keymap.set({ "n", "v" }, "<a-q>", "<c-w>q")
+vim.keymap.set({ "n", "v" }, "<a-j>", "<c-w>j")
+vim.keymap.set({ "n", "v" }, "<a-k>", "<c-w>k")
+vim.keymap.set({ "n", "v" }, "<a-h>", "<c-w>h")
+vim.keymap.set({ "n", "v" }, "<a-l>", "<c-w>l")
+vim.keymap.set({ "n", "v" }, "<a-s-j>", "<c-w>J")
+vim.keymap.set({ "n", "v" }, "<a-s-k>", "<c-w>K")
+vim.keymap.set({ "n", "v" }, "<a-s-h>", "<c-w>H")
+vim.keymap.set({ "n", "v" }, "<a-s-l>", "<c-w>L")
+vim.keymap.set({ "n", "v" }, "<c-7>", "<cmd>noh<cr>")
 vim.keymap.set("n", "<leader>t", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>")
 vim.keymap.set("n", "<leader>y", "<cmd>NvimTreeFocus<cr>")
 vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition)
@@ -175,7 +195,7 @@ vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover)
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 
 local fzf = require("fzf-lua")
-vim.keymap.set("n", "<leader>ff", function() fzf.files({ cmd = "fd" }) end)
+vim.keymap.set("n", "<leader>ff", function() fzf.files({ cmd = "fd --hidden --ignore-case" }) end)
 vim.keymap.set("n", "<leader>fg", fzf.live_grep)
 
 -- Options

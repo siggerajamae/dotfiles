@@ -28,8 +28,8 @@ font pango:CommitMono 10
 # Pipewire
 exec pipewire
 
-# Hotplugging
-exec_always ~/.config/sway/hotplug.sh
+# Hotplugging (uncomment this line)
+# exec_always ~/.config/sway/hotplug.sh
 
 # Variables
 set $mod Mod4
@@ -59,8 +59,8 @@ set $menu bemenu-run \
 	| xargs swaymsg exec
 
 # Output
-output eDP-1 mode 2880x1800@90Hz
-output DP-1 mode 1920x1080@144Hz
+output eDP-1 mode 2880x1800@90Hz pos 0 90 scale 2
+output DP-1 mode 1920x1080@144Hz pos 1440 0 scale 1
 output * bg #111111 solid_color
 
 # Disable focus on hover
@@ -93,7 +93,7 @@ floating_modifier $mod normal
 # Reload configuration file
 bindsym $mod+Shift+r reload
 
-# Exit sway
+# Exit Sway
 bindsym $mod+Shift+e exec "swaymsg exit"
 
 # Move focus
@@ -107,6 +107,12 @@ bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
+
+# Move focused workspace
+bindsym $mod+Control+$left move workspace to output left
+bindsym $mod+Control+$down move workspace to output down
+bindsym $mod+Control+$up move workspace to output up
+bindsym $mod+Control+$right move workspace to output right
 
 # Switch to workspace
 bindsym $mod+1 workspace number 1
@@ -179,7 +185,7 @@ bindsym $mod+r mode "resize"
 default_border pixel 1
 
 # Colors			     Border  Background Text    Indicator Child border
-client.focused 			 #ceceec #242424    #ceceec #ceceec   #ceceec
+client.focused 			 #ceceec #242424    #ceceec #242424   #ceceec
 client.focused_inactive  #111111 #242424    #ceceec #242424   #242424
 client.focused_tab_title #ceceec #242424    #ceceec
 client.unfocused 		 #111111 #242424    #ceceec #242424
@@ -199,7 +205,7 @@ bar {
 		# Colors		   Border  Background Text
 		inactive_workspace #242424 #242424	  #ceceec
 		active_workspace   #242424 #242424    #ceceec
-		urgent_workspace   #242424 #242424    #ceceec
+		urgent_workspace   #ceecce #242424    #ceceec
 		focused_workspace  #ceceec #242424    #ceceec
 	}
 }
