@@ -20,7 +20,7 @@ exec_always {
 seat seat0 xcursor_theme $cursor-theme $cursor-size
 
 # Wacom tablet
-input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 540 270 960 540
+input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 1980 270 960 540
 
 # Font
 font pango:CommitMono 10
@@ -169,17 +169,10 @@ bindsym $mod+Print exec grimshot --notify copy area
 bindsym $mod+Shift+Print exec grimshot --notify save area
 
 # Resize
-mode "resize" {
-	bindsym $left resize shrink width 60px
-	bindsym $down resize shrink height 60px
-	bindsym $up resize grow height 60px
-	bindsym $right resize grow width 60px
-
-	# Return to default mode
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
+bindsym $mod+Alt+$left resize shrink width 60px
+bindsym $mod+Alt+$down resize shrink height 60px
+bindsym $mod+Alt+$up resize grow height 60px
+bindsym $mod+Alt+$right resize grow width 60px
 
 # Border size
 default_border pixel 1

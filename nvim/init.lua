@@ -157,43 +157,78 @@ mason_lspconfig.setup_handlers({
 })
 
 -- Keymaps
+---- Leader
 vim.g.mapleader = " "
+
+---- jk to exit insert mode.
 vim.keymap.set("i", "jk", "<esc>", { noremap = true, silent = true })
+
+---- Enable jump history for j and k movements.
 vim.keymap.set({ "n", "v" }, "k", "(v:count > 1 ? 'm`' . v:count : '') . 'k'",
     { noremap = true, expr = true, silent = true })
 vim.keymap.set({ "n", "v" }, "j", "(v:count > 1 ? 'm`' . v:count : '') . 'j'",
     { noremap = true, expr = true, silent = true })
+
+---- Enable jump history for c-d and c-u movements.
 vim.keymap.set({ "n", "v" }, "<c-d>", "m`<c-d>")
 vim.keymap.set({ "n", "v" }, "<c-u>", "m`<c-u>")
+
+---- Tabs
+------ Navigate
 vim.keymap.set({ "n", "v" }, "<c-q>", "<cmd>tabclose<cr>")
 vim.keymap.set({ "n", "v" }, "<c-j>", "<cmd>tabfirst<cr>")
 vim.keymap.set({ "n", "v" }, "<c-k>", "<cmd>tablast<cr>")
 vim.keymap.set({ "n", "v" }, "<c-h>", "<cmd>tabp<cr>")
 vim.keymap.set({ "n", "v" }, "<c-l>", "<cmd>tabn<cr>")
+
+------ Move
 vim.keymap.set({ "n", "v" }, "<c-s-j>", "<cmd>0tabmove<cr>")
 vim.keymap.set({ "n", "v" }, "<c-s-k>", "<cmd>$tabmove<cr>")
 vim.keymap.set({ "n", "v" }, "<c-s-h>", "<cmd>-tabmove<cr>")
 vim.keymap.set({ "n", "v" }, "<c-s-l>", "<cmd>+tabmove<cr>")
+
+---- Windows
+------ Navigate
 vim.keymap.set({ "n", "v" }, "<a-q>", "<c-w>q")
 vim.keymap.set({ "n", "v" }, "<a-j>", "<c-w>j")
 vim.keymap.set({ "n", "v" }, "<a-k>", "<c-w>k")
 vim.keymap.set({ "n", "v" }, "<a-h>", "<c-w>h")
 vim.keymap.set({ "n", "v" }, "<a-l>", "<c-w>l")
+
+------ Move
 vim.keymap.set({ "n", "v" }, "<a-s-j>", "<c-w>J")
 vim.keymap.set({ "n", "v" }, "<a-s-k>", "<c-w>K")
 vim.keymap.set({ "n", "v" }, "<a-s-h>", "<c-w>H")
 vim.keymap.set({ "n", "v" }, "<a-s-l>", "<c-w>L")
+
+------ Resize
+vim.keymap.set({ "n", "v" }, "<a-c-j>", "<c-w>10-")
+vim.keymap.set({ "n", "v" }, "<a-c-k>", "<c-w>10+")
+vim.keymap.set({ "n", "v" }, "<a-c-h>", "<c-w>10<")
+vim.keymap.set({ "n", "v" }, "<a-c-l>", "<c-w>10>")
+
+---- Deselect
 vim.keymap.set({ "n", "v" }, "<c-7>", "<cmd>noh<cr>")
+
+---- Trouble
 vim.keymap.set("n", "<leader>t", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>")
+
+---- Nvim-tree
 vim.keymap.set("n", "<leader>y", "<cmd>NvimTreeFocus<cr>")
+
+---- Lsp
 vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition)
 vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration)
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>c", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
 vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover)
+
+---- Diagnostics
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 
+
+---- Fzf
 local fzf = require("fzf-lua")
 vim.keymap.set("n", "<leader>ff", function() fzf.files({ cmd = "fd --hidden --ignore-case" }) end)
 vim.keymap.set("n", "<leader>fg", fzf.live_grep)
