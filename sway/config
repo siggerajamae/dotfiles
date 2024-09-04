@@ -20,7 +20,11 @@ exec_always {
 seat seat0 xcursor_theme $cursor-theme $cursor-size
 
 # Wacom tablet
-input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 1980 270 960 540
+## For centered-aligned 1/2
+# input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 1980 270 960 540
+
+## For right-aligned 1/2
+input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 2400 270 960 540
 
 # Font
 font pango:CommitMono 10

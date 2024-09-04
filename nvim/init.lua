@@ -23,7 +23,12 @@ local plugins = {
                 view = {
                     relativenumber = true,
                     adaptive_size = true
-                }
+                },
+                on_attach = function(bufnr)
+                    local api = require("nvim-tree.api")
+                    api.config.mappings.default_on_attach(bufnr)
+                    vim.keymap.set("n", "<c-cr>", api.tree.change_root_to_node)
+                end
             })
         end
     },
@@ -214,7 +219,7 @@ vim.keymap.set({ "n", "v" }, "<c-7>", "<cmd>noh<cr>")
 vim.keymap.set("n", "<leader>t", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>")
 
 ---- Nvim-tree
-vim.keymap.set("n", "<leader>y", "<cmd>NvimTreeFocus<cr>")
+vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeFocus<cr>")
 
 ---- Lsp
 vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition)
@@ -222,11 +227,10 @@ vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration)
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>c", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
-vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover)
+vim.keymap.set("n", "<leader>q", vim.lsp.buf.hover)
 
 ---- Diagnostics
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-
+vim.keymap.set("n", "<leader>h", vim.diagnostic.open_float)
 
 ---- Fzf
 local fzf = require("fzf-lua")
