@@ -2,9 +2,7 @@
 exec --no-startup-id dbus-update-activation-environment --all 
 
 # Keyboard layout
-input * { 
-    xkb_layout se
-}
+input * xkb_layout se
 
 # Theme
 set $cursor-theme "breeze_cursors"
