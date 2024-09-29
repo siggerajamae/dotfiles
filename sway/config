@@ -2,8 +2,8 @@
 exec --no-startup-id dbus-update-activation-environment --all 
 
 # Keyboard layout
-input * {
-	xkb_layout se
+input * { 
+    xkb_layout se
 }
 
 # Theme
@@ -20,11 +20,14 @@ exec_always {
 seat seat0 xcursor_theme $cursor-theme $cursor-size
 
 # Wacom tablet
-## For centered-aligned 1/2
+## For centered-aligned 1:2
 # input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 1980 270 960 540
 
-## For right-aligned 1/2
+## For right-aligned 1:2
 input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 2400 270 960 540
+
+## For right-aligned 1:2 (laptop)
+# input 1386:966:Wacom_Intuos_BT_S_Pen map_to_region 720 338 720 405
 
 # Font
 font pango:CommitMono 10
@@ -62,9 +65,7 @@ set $menu bemenu-run \
     --bdr "#ceceec" \
 	| xargs swaymsg exec
 
-# Output
-output eDP-1 mode 2880x1800@90Hz pos 0 90 scale 2
-output DP-1 mode 1920x1080@144Hz pos 1440 0 scale 1
+# Background
 output * bg #111111 solid_color
 
 # Disable focus on hover
@@ -85,7 +86,7 @@ bindsym $mod+Return exec $term
 # Close focused window
 bindsym $mod+q kill
 
-# Actually kill focused window
+# Murder focused window
 bindsym $mod+Shift+q exec "kill -9 $(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused==true) | .pid')"
 
 # Start your launcher
@@ -208,3 +209,4 @@ bar {
 }
 
 include /etc/sway/config.d/*
+include ~/.config/sway/config.d/*
