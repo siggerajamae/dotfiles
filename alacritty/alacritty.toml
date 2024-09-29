@@ -2,23 +2,22 @@
 size = 11.0
 
 [font.bold]
-family = "CommitMono"
+family = "CommitMono Nerd Font"
 style = "Bold"
 
 [font.bold_italic]
-family = "CommitMono"
+family = "CommitMono Nerd Font"
 style = "Bold Italic"
 
 [font.italic]
-family = "CommitMono"
+family = "CommitMono Nerd Font"
 style = "Italic"
 
 [font.normal]
-family = "CommitMono"
+family = "CommitMono Nerd Font"
 style = "Regular"
 
 [keyboard]
 bindings = [
 	{ key = "n", mods = "Control | Shift", action = "SpawnNewInstance" },
-	{ key = "t", mods = "Control | Shift", command = { program = "thunar", args = ["."]}}
 ]
