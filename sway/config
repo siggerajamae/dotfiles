@@ -14,12 +14,6 @@ input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 2400 270 960 540
 # Font
 font pango:CommitMono Nerd Font 10
 
-# Pipewire
-exec pipewire
-
-# Hotplugging (uncomment this line)
-# exec_always ~/.config/sway/hotplug.sh
-
 # Variables
 set $mod Mod4
 set $left h

@@ -70,6 +70,9 @@
         unzip
         libva-utils
         github-cli
+        vlc
+        htop
+        nnn
     ];
 
     # Fonts
