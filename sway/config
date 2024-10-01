@@ -70,9 +70,6 @@ bindsym $mod+Shift+q exec "kill -9 $(swaymsg -t get_tree | jq '.. | select(.type
 # Start your launcher
 bindsym $mod+Space exec $menu
 
-# Open NixOS configuration file
-bindsym $mod+Shift+n exec alacritty -e sudo -E nvim /etc/nixos/configuration.nix
-
 # Drag floating
 floating_modifier $mod normal
 
