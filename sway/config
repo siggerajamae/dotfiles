@@ -28,7 +28,7 @@ set $menu bemenu-run \
 	-p "" \
     -c \
     -W 0.5 \
-    -B 2 \
+    -B 1 \
 	--fn "CommitMono Nerd Font 10" \
 	--hf "#ceceec" \
 	--nb "#111111" \
@@ -44,10 +44,15 @@ output * bg #111111 solid_color
 # Disable focus on hover
 focus_follows_mouse no
 
-# Volume control
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+# Audio volume control
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+
+# Microphone volume control
+bindsym Shift+XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+
+bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-
 
 # Brightness control
 bindsym XF86MonBrightnessUp exec brightnessctl s +5% 

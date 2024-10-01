@@ -1,9 +1,95 @@
-#! /bin/sh
+#!/bin/sh
 
-date_formatted=$(date '+%a %F %H:%M')
-battery_status=$(cat /sys/class/power_supply/BAT0/status)
-if [ "$battery_status" != "Full" ]; then 
-	battery_level=$(cat /sys/class/power_supply/BAT0/capacity)
-	battery_status="$battery_level%, $battery_status"
+# Date and time
+date_formatted=$(date "+%a %F %H:%M")
+
+# Append date and time to the status line
+status_line="$date_formatted"
+
+# If battery status file exists
+if [ -f /sys/class/power_supply/BAT0/status ]; then
+    # Get the battery status
+    battery_status=$(cat /sys/class/power_supply/BAT0/status)
+
+    # Initialize battery icon
+    battery_icon="󱉝"
+
+    # Get the battery level
+    battery_level=$(cat /sys/class/power_supply/BAT0/capacity)
+
+    # Battery icon based on battery status
+    if [ "$battery_status" = "Full" ]; then 
+        battery_icon="󰁹"
+    elif [ "$battery_status" = "Discharging" ]; then
+        if [ "$battery_level" -ge 90 ]; then
+            battery_icon="󰂂"
+        elif [ "$battery_level" -ge 80 ]; then
+            battery_icon="󰂁"
+        elif [ "$battery_level" -ge 70 ]; then
+            battery_icon="󰂀"
+        elif [ "$battery_level" -ge 60 ]; then
+            battery_icon="󰁿"
+        elif [ "$battery_level" -ge 50 ]; then
+            battery_icon="󰁾"
+        elif [ "$battery_level" -ge 40 ]; then
+            battery_icon="󰁽"
+        elif [ "$battery_level" -ge 30 ]; then
+            battery_icon="󰁼"
+        elif [ "$battery_level" -ge 20 ]; then
+            battery_icon="󰁻"
+        else
+            battery_icon="󰂃"
+        fi
+    elif [ "$battery_status" = "Charging" ]; then
+        battery_icon="󰂄"
+    elif [ "$battery_status" = "Not charging" ]; then
+        battery_icon="󱉝"
+    elif [ "$battery_status" = "Unknown" ]; then
+        battery_icon="󰂑"
+    fi
+    
+    # Append battery info to the status line
+    battery_info="$battery_icon $battery_level%"
+    status_line="$battery_info | $status_line"
 fi
-echo Battery: $battery_status \| $date_formatted
+
+# Get the current audio volume level and mute status
+audio_info=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+audio_level=$(echo "$audio_info" | awk '{print $2 * 100}')
+audio_muted=$(echo "$audio_info" | grep -o MUTED)
+
+# Icon based on mute status
+if [ "$audio_muted" = "MUTED" ]; then
+    audio_icon="󰖁"
+else
+    audio_icon="󰕾"
+fi
+
+# Append audio info to the status line
+audio_info="$audio_icon ${audio_level}%"
+status_line="$audio_info | $status_line"
+
+# Get the current microphone volume level and mute status
+mic_info=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@)
+mic_level=$(echo "$mic_info" | awk '{print $2 * 100}')
+mic_muted=$(echo "$mic_info" | grep -o MUTED)
+
+# Icon based on mute status
+if [ "$mic_muted" = "MUTED" ]; then
+    mic_icon="󰍭"
+else
+    mic_icon="󰍬"
+fi
+
+# Append microphone info to the status line
+mic_info="$mic_icon ${mic_level}%"
+status_line="$mic_info | $status_line"
+
+# Memory usage
+memory_usage=$(free -m | awk 'NR==2{printf "%.2f%%\n", $3 * 100 / $2 }')
+
+# Append memory usage to the status line
+status_line="󰍛 $memory_usage | $status_line"
+
+# Output the status line
+echo "$status_line"
