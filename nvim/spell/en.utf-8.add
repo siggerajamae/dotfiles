@@ -73,3 +73,5 @@ tollens
 #proj
 _proj/!
 proj/!
+SvelteKit
+TypeScript

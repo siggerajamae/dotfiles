@@ -1,12 +1,26 @@
 # Keyboard layout
 input * xkb_layout se
 
+# Theme, cursor and icons
+set $cursor-theme Adwaita
+set $cursor-size 24
+set $gnome-schema org.gnome.desktop.interface
+
+seat * xcursor_theme $cursor-theme $cursor-size
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Adwaita'
+    gsettings set $gnome-schema icon-theme 'adwaita-icon-theme'
+    gsettings set $gnome-schema cursor-theme '$cursor-theme'
+    gsettings set $gnome-schema cursor-size $cursor-size
+}
+
 # Wacom tablet
 ## For centered-aligned 1:2
-# input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 1980 270 960 540
+input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 1980 270 960 540
 
 ## For right-aligned 1:2
-input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 2400 270 960 540
+#input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 2400 270 960 540
 
 ## For right-aligned 1:2 (laptop)
 # input 1386:966:Wacom_Intuos_BT_S_Pen map_to_region 720 338 720 405

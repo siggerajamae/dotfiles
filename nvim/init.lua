@@ -15,21 +15,23 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Lazy
 local plugins = {
+    "barreiroleo/ltex_extra.nvim",
+    "chomosuke/typst-preview.nvim",
+    "folke/neoconf.nvim",
+    "ggandor/leap.nvim",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-cmdline",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/vim-vsnip",
+    "ibhagwan/fzf-lua",
+    "nanotee/sqls.nvim",
     "neovim/nvim-lspconfig",
+    "nvim-tree/nvim-web-devicons",
+    "nyoom-engineering/oxocarbon.nvim",
     {
-        "nvim-tree/nvim-tree.lua",
+        "echasnovski/mini.nvim",
         config = function()
-            require("nvim-tree").setup({
-                view = {
-                    relativenumber = true,
-                    adaptive_size = true
-                },
-                on_attach = function(bufnr)
-                    local api = require("nvim-tree.api")
-                    api.config.mappings.default_on_attach(bufnr)
-                    vim.keymap.set("n", "<c-cr>", api.tree.change_root_to_node)
-                end
-            })
+            require("mini.icons").setup()
         end
     },
     {
@@ -69,26 +71,28 @@ local plugins = {
             })
         end
     },
-    "nanotee/sqls.nvim",
-    "barreiroleo/ltex_extra.nvim",
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-cmdline",
-    "hrsh7th/vim-vsnip",
-    "nvim-tree/nvim-web-devicons",
-    "ggandor/leap.nvim",
-    "chomosuke/typst-preview.nvim",
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "nyoom-engineering/oxocarbon.nvim",
+    {
+        "nvim-tree/nvim-tree.lua",
+        config = function()
+            require("nvim-tree").setup({
+                view = {
+                    relativenumber = true,
+                    adaptive_size = true
+                },
+                on_attach = function(bufnr)
+                    local api = require("nvim-tree.api")
+                    api.config.mappings.default_on_attach(bufnr)
+                    vim.keymap.set("n", "<c-cr>", api.tree.change_root_to_node)
+                end
+            })
+        end
+    },
     {
         "windwp/nvim-autopairs",
         config = function()
             require("nvim-autopairs").setup()
         end
     },
-    "ibhagwan/fzf-lua",
-    "folke/neoconf.nvim",
     {
         "folke/trouble.nvim",
         opts = {},
@@ -118,48 +122,6 @@ require("leap").create_default_mappings()
 
 -- Neoconf
 require("neoconf").setup()
-
--- Mason
-require("mason").setup()
-local mason_lspconfig = require("mason-lspconfig")
-mason_lspconfig.setup()
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-mason_lspconfig.setup_handlers({
-    function(server_name)
-        require("lspconfig")[server_name].setup({
-            capabilities = capabilities
-        })
-    end,
-    ["ltex"] = function()
-        local lspconfig = require("lspconfig")
-        lspconfig.ltex.setup({
-            on_attach = function(_, _)
-                require("ltex_extra").setup()
-            end,
-            settings = {
-                ltex = {
-                    language = "en-US",
-                    enabled = {
-                        "gitcommit",
-                        "markdown",
-                        "norg",
-                        "tex",
-                        "typst",
-                        "latex"
-                    },
-                    dictionary = {}
-                }
-            },
-            filetypes = {
-                "gitcommit",
-                "markdown",
-                "norg",
-                "tex",
-                "typst"
-            }
-        })
-    end
-})
 
 -- Keymaps
 --- Leader
@@ -266,9 +228,22 @@ vim.diagnostic.config({
     virtual_text = false,
 })
 
-require("lspconfig")["hls"].setup({
-    capabilities = capabilities,
-})
+-- Default configuration
+local language_servers = {
+    "lua_ls",
+    "rust_analyzer",
+    "svelte",
+    "html",
+    "ts_ls",
+    "jsonls",
+    "cssls"
+}
+
+for _, ls in ipairs(language_servers) do
+    require("lspconfig")[ls].setup({
+        capabilities = capabilities,
+    })
+end
 
 -- EditorConfig
 vim.g.editorconfig = true

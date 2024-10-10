@@ -4,6 +4,7 @@
   imports = [
     /etc/nixos/hardware-configuration.nix # Generated hardware configuration
     ./system.nix # Additional system specific configuration
+    ./rust.nix # Rust configuration
   ];
 
   # Use the systemd-boot EFI boot loader
@@ -23,6 +24,17 @@
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+  };
+
+  # Bluetooth
+  hardware.bluetooth = {
+    enable = true; # Enables support for Bluetooth
+    powerOnBoot = true; # Powers up the default Bluetooth controller on boot
+    settings = {
+      Policy = {
+        AutoEnable = "true"; # Automatically enable
+      };
+    };
   };
 
   # Touchpad
@@ -57,30 +69,59 @@
   environment.systemPackages = with pkgs; [
     alacritty
     bemenu
-    cargo
+    brightnessctl
     clang
+    devenv
     discord
     fd
     firefox
     fzf
     git
     github-cli
-    grim
+    glib
+    gnome.adwaita-icon-theme
+    gsettings-desktop-schemas
     htop
+    inkscape
     libva-utils
+    lua-language-server
     neovim
     nixpkgs-fmt
     nnn
+    nodejs
     pavucontrol
+    python3
     spotify
-    sway
+    sway-contrib.grimshot
     trash-cli
     tree
+    nodePackages_latest.typescript-language-server
+    nodePackages_latest.svelte-language-server
     unzip
     vlc
+    vscode-langservers-extracted
     wget
+    wineWowPackages.stagingFull
     wl-clipboard
+    xdg-desktop-portal
+    xdg-utils
   ];
+
+  # Trusted users
+  nix.settings.trusted-users = [ "sigge" ];
+
+  # XDG
+  xdg.mime.enable = true;
+
+  # Dynamic libraries for unpackaged programs
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    glibc
+    libcxx
+  ];
+
+  # Enable Polkit
+  security.polkit.enable = true;
 
   # Fonts
   fonts.packages =
@@ -99,6 +140,7 @@
   # Enable Sway
   programs.sway = {
     enable = true;
+    wrapperFeatures.base = true;
     wrapperFeatures.gtk = true;
   };
 }
