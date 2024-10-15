@@ -1,0 +1,36 @@
+* {
+    font-family: Commit Mono Nerd Font;
+    font-size: 13px;
+}
+
+window#waybar {
+    all: unset;
+    background: transparent;
+    color: #ceceec;
+}
+
+#workspaces button,
+.modules-right>widget>* {
+    all: unset;
+    padding: 2px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border: 1px solid #ceceec;
+}
+
+#workspaces button {
+    margin-right: 8px;
+    border-color: transparent;
+}
+
+#workspaces button.focused {
+    border-color: #ceceec;
+}
+
+#workspaces button.urgent {
+    border-color: #ceecce;
+}
+
+#tray {
+    all: unset;
+}

@@ -239,6 +239,9 @@ local language_servers = {
     "cssls"
 }
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 for _, ls in ipairs(language_servers) do
     require("lspconfig")[ls].setup({
         capabilities = capabilities,

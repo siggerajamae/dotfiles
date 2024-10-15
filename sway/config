@@ -28,6 +28,9 @@ input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 1980 270 960 540
 # Font
 font pango:CommitMono Nerd Font 10
 
+# Gaps
+gaps inner 8
+
 # Variables
 set $mod Mod4
 set $left h
@@ -184,20 +187,7 @@ client.placeholder 		 #111111 #242424    #ceceec #242424   #242424
 
 # Status bar
 bar {
-	position top
-	font "CommitMono Nerd Font 10"
-	status_command while ~/.config/sway/status.sh; do sleep 1; done
-	height 17
-	colors {
-		statusline #ceceec
-		background #111111 
-
-		# Colors		   Border  Background Text
-		inactive_workspace #242424 #242424	  #ceceec
-		active_workspace   #242424 #242424    #ceceec
-		urgent_workspace   #ceecce #242424    #ceceec
-		focused_workspace  #ceceec #242424    #ceceec
-	}
+    swaybar_command waybar
 }
 
 include /etc/sway/config.d/*
