@@ -49,14 +49,14 @@ if [ -f /sys/class/power_supply/BAT0/status ]; then
     fi
     
     # Append battery info to the status line
-    battery_info="$battery_icon $battery_level%"
-    status_line="$battery_info | $status_line"
+    battery_status="$battery_icon $battery_level%"
+    status_line="$battery_status  $status_line"
 fi
 
 # Get the current audio volume level and mute status
-audio_info=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
-audio_level=$(echo "$audio_info" | awk '{print $2 * 100}')
-audio_muted=$(echo "$audio_info" | grep -o MUTED)
+audio_status=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+audio_level=$(echo "$audio_status" | awk '{print $2 * 100}')
+audio_muted=$(echo "$audio_status" | grep -o MUTED)
 
 # Icon based on mute status
 if [ "$audio_muted" = "MUTED" ]; then
@@ -66,13 +66,13 @@ else
 fi
 
 # Append audio info to the status line
-audio_info="$audio_icon ${audio_level}%"
-status_line="$audio_info | $status_line"
+audio_status="$audio_icon ${audio_level}%"
+status_line="$audio_status  $status_line"
 
 # Get the current microphone volume level and mute status
-mic_info=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@)
-mic_level=$(echo "$mic_info" | awk '{print $2 * 100}')
-mic_muted=$(echo "$mic_info" | grep -o MUTED)
+mic_status=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@)
+mic_level=$(echo "$mic_status" | awk '{print $2 * 100}')
+mic_muted=$(echo "$mic_status" | grep -o MUTED)
 
 # Icon based on mute status
 if [ "$mic_muted" = "MUTED" ]; then
@@ -82,14 +82,15 @@ else
 fi
 
 # Append microphone info to the status line
-mic_info="$mic_icon ${mic_level}%"
-status_line="$mic_info | $status_line"
+mic_status="$mic_icon ${mic_level}%"
+status_line="$mic_status  $status_line"
 
 # Memory usage
-memory_usage=$(free -m | awk 'NR==2{printf "%.2f%%\n", $3 * 100 / $2 }')
+memory_usage=$(free -m | awk 'NR==2{printf "%.0f%%\n", $3 * 100 / $2 }')
 
 # Append memory usage to the status line
-status_line="󰍛 $memory_usage | $status_line"
+memory_status="󰍛 $memory_usage"
+status_line="$memory_status  $status_line"
 
 # Output the status line
 echo "$status_line"

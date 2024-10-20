@@ -9,27 +9,25 @@ set $gnome-schema org.gnome.desktop.interface
 seat * xcursor_theme $cursor-theme $cursor-size
 
 exec_always {
-    gsettings set $gnome-schema gtk-theme 'Adwaita'
-    gsettings set $gnome-schema icon-theme 'adwaita-icon-theme'
-    gsettings set $gnome-schema cursor-theme '$cursor-theme'
+    gsettings set $gnome-schema gtk-theme Adwaita
+    gsettings set $gnome-schema icon-theme adwaita-icon-theme
+    gsettings set $gnome-schema cursor-theme $cursor-theme
     gsettings set $gnome-schema cursor-size $cursor-size
+    gsettings set $gnome-schema color-scheme prefer-dark
 }
 
 # Wacom tablet
 ## For centered-aligned 1:2
-input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 1980 270 960 540
+# input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 1980 270 960 540
 
 ## For right-aligned 1:2
-#input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 2400 270 960 540
+input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 2400 270 960 540
 
 ## For right-aligned 1:2 (laptop)
-# input 1386:966:Wacom_Intuos_BT_S_Pen map_to_region 720 338 720 405
+# input 1386:965:Wacom_Intuos_BT_S_Pen map_to_region 720 338 720 405
 
 # Font
 font pango:CommitMono Nerd Font 10
-
-# Gaps
-gaps inner 8
 
 # Variables
 set $mod Mod4
@@ -177,6 +175,11 @@ bindsym $mod+Alt+$right resize grow width 60px
 # Border size
 default_border pixel 1
 
+# Force borders (without window title)
+# For some reason borders are not always applied when floating,
+# Seems to happen with most GTK applications
+for_window [app_id=".*"] border pixel 1
+
 # Colors			     Border  Background Text    Indicator Child border
 client.focused 			 #ceceec #242424    #ceceec #242424   #ceceec
 client.focused_inactive  #111111 #242424    #ceceec #242424   #242424
@@ -187,7 +190,20 @@ client.placeholder 		 #111111 #242424    #ceceec #242424   #242424
 
 # Status bar
 bar {
-    swaybar_command waybar
+	position top
+	font "CommitMono Nerd Font 10"
+	status_command while ~/.config/sway/status.sh; do sleep 1; done
+	height 17
+	colors {
+		statusline #ceceec
+		background #111111 
+
+		# Colors		   Border  Background Text
+		inactive_workspace #242424 #242424	  #ceceec
+		active_workspace   #242424 #242424    #ceceec
+		urgent_workspace   #ceecce #242424    #ceceec
+		focused_workspace  #ceceec #242424    #ceceec
+	}
 }
 
 include /etc/sway/config.d/*
