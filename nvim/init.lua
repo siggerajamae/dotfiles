@@ -1,4 +1,5 @@
 ---@diagnostic disable: missing-fields, undefined-global, deprecated
+
 -- Bootstrap Lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -45,12 +46,10 @@ local plugins = {
                     end
                 },
                 mapping = cmp.mapping.preset.insert {
-                    ["<c-b>"] = cmp.mapping.scroll_docs(-4),
-                    ["<c-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<c-j>"] = cmp.mapping.select_next_item(),
-                    ["<c-k>"] = cmp.mapping.select_prev_item(),
-                    ["<c-Space>"] = cmp.mapping.complete(),
-                    ["<c-e>"] = cmp.mapping.abort(),
+                    ["<tab>"] = cmp.mapping.select_next_item(),
+                    ["<s-tab>"] = cmp.mapping.select_prev_item(),
+                    ["<c-space>"] = cmp.mapping.complete(),
+                    ["<c-c>"] = cmp.mapping.abort(),
                     ["<cr>"] = cmp.mapping.confirm({ select = true }),
                 },
                 sources = cmp.config.sources {

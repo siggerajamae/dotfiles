@@ -1,0 +1,14 @@
+theme = "mellow"
+
+[editor]
+line-number = "relative"
+auto-info = false
+
+[editor.lsp]
+auto-signature-help = false
+
+[editor.cursor-shape]
+insert = "bar"
+
+[keys.insert.j]
+k = "normal_mode"
